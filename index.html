@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShopEase | Online Shopping</title>
+<title>ShopEase - Online Shopping</title>
+
 <style>
 :root {
   --bg:#f5f6fa; --card:#fff; --text:#202534;
@@ -17,7 +18,6 @@ body.dark {
 body {
   margin:0; font-family:Arial,sans-serif;
   background:var(--bg); color:var(--text);
-  transition:.25s;
 }
 header {
   background:var(--card); border-bottom:1px solid var(--border);
@@ -26,60 +26,64 @@ header {
   position:sticky; top:0; z-index:5;
 }
 .logo { font-size:25px; font-weight:800; color:var(--primary); }
-button,select,input { font:inherit; }
+button,input,select,textarea { font:inherit; }
 button {
   border:0; cursor:pointer; border-radius:8px;
-  padding:10px 14px; transition:.2s;
+  padding:10px 14px;
 }
-button:hover { opacity:.86; transform:translateY(-1px); }
+button:hover { opacity:.86; }
+.primary { background:var(--primary); color:white; }
+.secondary {
+  background:var(--bg); color:var(--text);
+  border:1px solid var(--border);
+}
 .search { flex:1; min-width:180px; max-width:480px; }
-input,select {
-  background:var(--card); color:var(--text);
-  border:1px solid var(--border); border-radius:8px;
-  padding:11px; outline:none;
-}
 .search input { width:100%; }
 .actions { display:flex; gap:8px; flex-wrap:wrap; }
-.primary { background:var(--primary); color:white; }
-.secondary { background:var(--bg); color:var(--text); border:1px solid var(--border); }
+input,select,textarea {
+  background:var(--card); color:var(--text);
+  border:1px solid var(--border); border-radius:8px;
+  padding:11px; width:100%;
+}
 .hero {
   margin:24px auto; width:90%; padding:38px 25px;
   border-radius:18px; color:white;
   background:linear-gradient(110deg,#3730a3,#7c3aed,#db2777);
 }
 .hero h1 { font-size:clamp(28px,5vw,46px); margin:0 0 12px; }
-.hero p { line-height:1.6; max-width:600px; }
+.hero p { line-height:1.6; }
 main { width:90%; margin:auto; }
 .toolbar {
   display:flex; justify-content:space-between;
   align-items:center; gap:12px; flex-wrap:wrap; margin:25px 0;
 }
 .categories { display:flex; gap:8px; flex-wrap:wrap; }
+.category {
+  background:var(--card); color:var(--text);
+  border:1px solid var(--border);
+}
 .category.active { background:var(--primary); color:white; }
-.category { background:var(--card); color:var(--text); border:1px solid var(--border); }
 .products {
   display:grid; grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
   gap:20px; padding-bottom:30px;
 }
 .product {
   background:var(--card); border:1px solid var(--border);
-  border-radius:14px; overflow:hidden; position:relative;
-  transition:.25s;
+  border-radius:14px; overflow:hidden; transition:.2s;
 }
-.product:hover { transform:translateY(-5px); box-shadow:0 12px 28px #00000012; }
+.product:hover { transform:translateY(-3px); }
+.image-wrap { position:relative; overflow:hidden; }
 .product-image {
   width:100%; height:225px; object-fit:cover; display:block;
-  background:#eceef3; transition:transform .3s;
+  background:#eceef3;
 }
-.product:hover .product-image { transform:scale(1.025); }
-.image-wrap { overflow:hidden; position:relative; }
 .heart {
   position:absolute; top:10px; right:10px;
   background:white; color:#e11d48; font-size:20px;
   width:38px; height:38px; padding:0;
 }
 .details { padding:15px; }
-.details h3 { font-size:16px; margin:0 0 8px; }
+.details h3 { font-size:16px; margin:10px 0 8px; }
 .description { color:var(--muted); font-size:13px; min-height:32px; line-height:1.4; }
 .rating { color:#f59e0b; margin:8px 0; font-size:14px; }
 .price { font-size:20px; font-weight:bold; }
@@ -87,8 +91,9 @@ main { width:90%; margin:auto; }
 .add { width:100%; margin-top:12px; }
 .tag { font-size:11px; background:#ede9fe; color:#5b21b6; padding:5px 7px; border-radius:5px; }
 .empty { grid-column:1/-1; text-align:center; padding:40px; color:var(--muted); }
-section.panel {
-  background:var(--card); padding:20px; border:1px solid var(--border);
+.panel {
+  background:var(--card); padding:20px;
+  border:1px solid var(--border);
   border-radius:14px; margin:20px 0;
 }
 .panel h2 { margin-top:0; }
@@ -100,10 +105,12 @@ section.panel {
 .cart-info { flex:1; }
 .cart-info small { color:var(--muted); }
 .cart-buttons { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-.total { font-size:22px; font-weight:bold; margin:18px 0; }
-footer { text-align:center; padding:28px; color:var(--muted); }
-.hidden { display:none !important; }
+.total { font-size:20px; font-weight:bold; margin:18px 0; }
 .notice { color:var(--muted); font-size:13px; line-height:1.6; }
+.hidden { display:none !important; }
+.field { margin:15px 0; }
+.field label { display:block; font-weight:bold; margin-bottom:7px; }
+footer { text-align:center; padding:28px; color:var(--muted); }
 @media(max-width:600px) {
   header { position:static; }
   .products { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
@@ -116,8 +123,8 @@ footer { text-align:center; padding:28px; color:var(--muted); }
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
   <div class="logo">ShopEase</div>
   <div class="search">
@@ -160,8 +167,41 @@ footer { text-align:center; padding:28px; color:var(--muted); }
       <p id="couponMessage" class="notice"></p>
     </div>
     <div id="cartTotal" class="total">Total: ₹0</div>
-    <button class="primary" onclick="checkout()">Place Demo Order</button>
+    <button class="primary" onclick="showCheckout()">Place Demo Order</button>
     <button class="secondary" onclick="clearCart()">Clear Cart</button>
+  </section>
+
+  <!-- NEW CUSTOMER DETAILS FORM -->
+  <section class="panel hidden" id="checkoutPanel">
+    <h2>Customer Details</h2>
+    <p class="notice">Enter your delivery details to place your order.</p>
+
+    <form id="customerForm">
+      <div class="field">
+        <label for="customerName">Customer Name</label>
+        <input id="customerName" name="customerName"
+          type="text" placeholder="Enter your full name"
+          autocomplete="name" minlength="3" required>
+      </div>
+
+      <div class="field">
+        <label for="customerPhone">Phone Number</label>
+        <input id="customerPhone" name="customerPhone"
+          type="tel" placeholder="Enter 10-digit mobile number"
+          autocomplete="tel" inputmode="numeric"
+          pattern="[6-9][0-9]{9}" required>
+      </div>
+
+      <div class="field">
+        <label for="customerAddress">Delivery Address</label>
+        <textarea id="customerAddress" name="customerAddress"
+          rows="4" placeholder="House number, street, area, city and PIN code"
+          autocomplete="street-address" minlength="5" required></textarea>
+      </div>
+
+      <button type="submit" class="primary">Confirm Order</button>
+      <button type="button" class="secondary" onclick="hideCheckout()">Cancel</button>
+    </form>
   </section>
 
   <section class="panel hidden" id="wishlistPanel">
@@ -182,100 +222,80 @@ footer { text-align:center; padding:28px; color:var(--muted); }
 </footer>
 
 <script>
-const image = (id) =>
+const image = id =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=650&q=85`;
 
 const productsData = [
-  {id:1,name:"Everyday Sneakers",category:"Fashion",price:1499,old:2199,rating:4.7,
-   description:"Comfortable shoes for everyday wear.",
-   image:"photo-1542291026-7eec264c27ff"},
-  {id:2,name:"Classic Wristwatch",category:"Accessories",price:1899,old:2499,rating:4.5,
-   description:"Minimal dial with a timeless design.",
-   image:"photo-1524805444758-089113d48a6d"},
-  {id:3,name:"Wireless Headphones",category:"Electronics",price:2299,old:2999,rating:4.8,
-   description:"Enjoy music with comfortable ear cushions.",
-   image:"photo-1505740420928-5e560c06d30e"},
-  {id:4,name:"Travel Backpack",category:"Accessories",price:1199,old:1699,rating:4.4,
-   description:"Spacious design for daily essentials.",
-   image:"photo-1553062407-98eeb64c6a62"},
-  {id:5,name:"Casual Cotton Shirt",category:"Fashion",price:899,old:1299,rating:4.3,
-   description:"Versatile casual wear for everyday use.",
-   image:"photo-1598033129183-c4f50c736f10"},
-  {id:6,name:"Modern Sunglasses",category:"Accessories",price:699,old:999,rating:4.2,
-   description:"Classic frame with tinted lenses.",
-   image:"photo-1511499767150-a48a237f0083"},
-  {id:7,name:"Digital Camera",category:"Electronics",price:8499,old:9999,rating:4.6,
-   description:"Capture your everyday memories.",
-   image:"photo-1516035069371-29a1b244cc32"},
-  {id:8,name:"Ceramic Coffee Mug",category:"Home",price:349,old:499,rating:4.4,
-   description:"A simple mug for your daily coffee.",
-   image:"photo-1514228742587-6b1558fcca3d"},
-  {id:9,name:"Running Shoes",category:"Fashion",price:1799,old:2399,rating:4.6,
-   description:"Lightweight shoes for active days.",
-   image:"photo-1460353581641-37baddab0fa2"},
-  {id:10,name:"Desk Lamp",category:"Home",price:799,old:1199,rating:4.3,
-   description:"Soft lighting for your workspace.",
-   image:"photo-1507473885765-e6ed057f782c"},
-  {id:11,name:"Wireless Speaker",category:"Electronics",price:1599,old:2199,rating:4.5,
-   description:"Compact speaker for everyday listening.",
-   image:"photo-1608043152269-423dbba4e7e1"},
-  {id:12,name:"Everyday Handbag",category:"Accessories",price:1399,old:1899,rating:4.4,
-   description:"A versatile bag with useful storage.",
-   image:"photo-1584917865442-de89df76afd3"}
-].map(p => ({...p, photo:image(p.image)}));
+  {id:1,name:"Everyday Sneakers",category:"Fashion",price:1499,old:2199,rating:4.7,description:"Comfortable shoes for everyday wear.",image:"photo-1542291026-7eec264c27ff"},
+  {id:2,name:"Classic Wristwatch",category:"Accessories",price:1899,old:2499,rating:4.5,description:"Minimal dial with a timeless design.",image:"photo-1524805444758-089113d48a6d"},
+  {id:3,name:"Wireless Headphones",category:"Electronics",price:2299,old:2999,rating:4.8,description:"Comfortable headphones for music.",image:"photo-1505740420928-5e560c06d30e"},
+  {id:4,name:"Travel Backpack",category:"Accessories",price:1199,old:1699,rating:4.4,description:"Spacious bag for daily essentials.",image:"photo-1553062407-98eeb64c6a62"},
+  {id:5,name:"Casual Cotton Shirt",category:"Fashion",price:899,old:1299,rating:4.3,description:"Versatile casual everyday wear.",image:"photo-1598033129183-c4f50c736f10"},
+  {id:6,name:"Modern Sunglasses",category:"Accessories",price:699,old:999,rating:4.2,description:"Classic frame with tinted lenses.",image:"photo-1511499767150-a48a237f0083"},
+  {id:7,name:"Digital Camera",category:"Electronics",price:8499,old:9999,rating:4.6,description:"Capture your everyday memories.",image:"photo-1516035069371-29a1b244cc32"},
+  {id:8,name:"Ceramic Coffee Mug",category:"Home",price:349,old:499,rating:4.4,description:"A simple mug for your daily coffee.",image:"photo-1514228742587-6b1558fcca3d"},
+  {id:9,name:"Running Shoes",category:"Fashion",price:1799,old:2399,rating:4.6,description:"Lightweight shoes for active days.",image:"photo-1460353581641-37baddab0fa2"},
+  {id:10,name:"Desk Lamp",category:"Home",price:799,old:1199,rating:4.3,description:"Soft lighting for your workspace.",image:"photo-1507473885765-e6ed057f782c"},
+  {id:11,name:"Wireless Speaker",category:"Electronics",price:1599,old:2199,rating:4.5,description:"Compact speaker for everyday listening.",image:"photo-1608043152269-423dbba4e7e1"},
+  {id:12,name:"Everyday Handbag",category:"Accessories",price:1399,old:1899,rating:4.4,description:"Versatile bag with useful storage.",image:"photo-1584917865442-de89df76afd3"}
+].map(p=>({...p,photo:image(p.image)}));
 
 let cart = {};
 let wishlist = new Set();
 let currentCategory = "All";
 let couponApplied = false;
-let wishlistMode = false;
 let orders = [];
 
 const money = n => "₹" + n.toLocaleString("en-IN");
-const getProduct = id => productsData.find(p => p.id === Number(id));
+const getProduct = id => productsData.find(p=>p.id===Number(id));
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
 
 function renderCategories() {
-  const cats = ["All", ...new Set(productsData.map(p => p.category))];
-  document.getElementById("categories").innerHTML = cats.map(c =>
+  const cats=["All",...new Set(productsData.map(p=>p.category))];
+  document.getElementById("categories").innerHTML=cats.map(c=>
     `<button class="category ${c===currentCategory?'active':''}"
-    onclick="setCategory('${c}')">${c}</button>`
+      onclick="setCategory('${c}')">${c}</button>`
   ).join("");
 }
 
 function renderProducts() {
-  wishlistMode = false;
-  const q = document.getElementById("search").value.toLowerCase().trim();
-  const sort = document.getElementById("sort").value;
-  let list = productsData.filter(p =>
-    (currentCategory==="All" || p.category===currentCategory) &&
+  const q=document.getElementById("search").value.toLowerCase().trim();
+  const sort=document.getElementById("sort").value;
+  let list=productsData.filter(p=>
+    (currentCategory==="All"||p.category===currentCategory)&&
     (p.name+" "+p.category+" "+p.description).toLowerCase().includes(q)
   );
   if(sort==="low") list.sort((a,b)=>a.price-b.price);
   if(sort==="high") list.sort((a,b)=>b.price-a.price);
   if(sort==="rating") list.sort((a,b)=>b.rating-a.rating);
 
-  document.getElementById("sectionTitle").textContent =
-    currentCategory==="All" ? "Featured Products" : currentCategory+" Products";
+  document.getElementById("sectionTitle").textContent=
+    currentCategory==="All"?"Featured Products":currentCategory+" Products";
 
-  document.getElementById("products").innerHTML = list.length ? list.map(p => `
+  document.getElementById("products").innerHTML=list.length?list.map(p=>`
     <article class="product">
       <div class="image-wrap">
-        <img class="product-image" src="${p.photo}" alt="${p.name}"
-             loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/f0f0f0/555?text=Product+Image'">
+        <img class="product-image" src="${p.photo}" alt="${escapeHTML(p.name)}"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='https://placehold.co/600x450?text=Product+Image'">
         <button class="heart" aria-label="Toggle wishlist"
           onclick="toggleWish(${p.id})">${wishlist.has(p.id)?"♥":"♡"}</button>
       </div>
       <div class="details">
         <span class="tag">${p.category}</span>
-        <h3>${p.name}</h3>
-        <div class="description">${p.description}</div>
-        <div class="rating">★ ${p.rating} <span style="color:var(--muted)">/ 5</span></div>
+        <h3>${escapeHTML(p.name)}</h3>
+        <div class="description">${escapeHTML(p.description)}</div>
+        <div class="rating">★ ${p.rating} / 5</div>
         <div><span class="price">${money(p.price)}</span>
-        <span class="old-price">${money(p.old)}</span></div>
+          <span class="old-price">${money(p.old)}</span></div>
         <button class="primary add" onclick="addToCart(${p.id})">Add to Cart</button>
       </div>
-    </article>`).join("") : `<div class="empty">No products found. Try another search.</div>`;
-
+    </article>`).join(""):`<div class="empty">No products found.</div>`;
   updateCounts();
 }
 
@@ -286,11 +306,9 @@ function setCategory(c) {
 }
 
 function toggleWish(id) {
-  wishlist.has(id) ? wishlist.delete(id) : wishlist.add(id);
+  wishlist.has(id)?wishlist.delete(id):wishlist.add(id);
   renderProducts();
-  if(!document.getElementById("wishlistPanel").classList.contains("hidden")) {
-    renderWishlist();
-  }
+  if(!document.getElementById("wishlistPanel").classList.contains("hidden")) renderWishlist();
 }
 
 function addToCart(id) {
@@ -300,34 +318,39 @@ function addToCart(id) {
 }
 
 function updateCounts() {
-  document.getElementById("cartCount").textContent =
-    Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0);
   document.getElementById("wishCount").textContent=wishlist.size;
 }
 
 function showPanel(id) {
-  ["cartPanel","wishlistPanel","ordersPanel"].forEach(x =>
+  ["cartPanel","checkoutPanel","wishlistPanel","ordersPanel"].forEach(x=>
     document.getElementById(x).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
   document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function showCart() {
-  showPanel("cartPanel");
-  renderCart();
+function showCart() { showPanel("cartPanel"); renderCart(); }
+function showWishlist() { showPanel("wishlistPanel"); renderWishlist(); }
+function showOrders() { showPanel("ordersPanel"); renderOrders(); }
+
+function showCheckout() {
+  if(!Object.values(cart).some(q=>q>0)) {
+    alert("Please add a product to your cart first.");
+    return;
+  }
+  showPanel("checkoutPanel");
 }
-function showWishlist() {
-  showPanel("wishlistPanel");
-  renderWishlist();
+function hideCheckout() {
+  document.getElementById("checkoutPanel").classList.add("hidden");
 }
 
 function renderCart() {
   const entries=Object.entries(cart).filter(([id,q])=>q>0);
-  document.getElementById("cartItems").innerHTML=entries.length ? entries.map(([id,q])=>{
+  document.getElementById("cartItems").innerHTML=entries.length?entries.map(([id,q])=>{
     const p=getProduct(id);
     return `<div class="cart-row">
-      <img src="${p.photo}" alt="${p.name}">
-      <div class="cart-info"><strong>${p.name}</strong><br><small>${money(p.price)} each</small></div>
+      <img src="${p.photo}" alt="${escapeHTML(p.name)}">
+      <div class="cart-info"><strong>${escapeHTML(p.name)}</strong><br><small>${money(p.price)} each</small></div>
       <div class="cart-buttons">
         <button class="secondary" onclick="changeQty(${id},-1)">−</button>
         <span>${q}</span>
@@ -335,10 +358,10 @@ function renderCart() {
         <button class="secondary" onclick="removeItem(${id})">✕</button>
       </div>
     </div>`;
-  }).join("") : "<p>Your cart is empty.</p>";
+  }).join(""):"<p>Your cart is empty.</p>";
 
-  const subtotal=entries.reduce((sum,[id,q])=>sum+getProduct(id).price*q,0);
-  const discount=couponApplied && subtotal>=1000 ? Math.round(subtotal*.10):0;
+  const subtotal=entries.reduce((s,[id,q])=>s+getProduct(id).price*q,0);
+  const discount=couponApplied&&subtotal>=1000?Math.round(subtotal*.10):0;
   document.getElementById("cartTotal").textContent=
     `Subtotal: ${money(subtotal)} | Discount: ${money(discount)} | Total: ${money(subtotal-discount)}`;
   updateCounts();
@@ -349,12 +372,7 @@ function changeQty(id,delta) {
   if(cart[id]<=0) delete cart[id];
   renderCart();
 }
-
-function removeItem(id) {
-  delete cart[id];
-  renderCart();
-}
-
+function removeItem(id) { delete cart[id]; renderCart(); }
 function clearCart() {
   cart={}; couponApplied=false;
   document.getElementById("couponMessage").textContent="";
@@ -365,80 +383,108 @@ function applyCoupon() {
   const code=document.getElementById("coupon").value.trim().toUpperCase();
   const subtotal=Object.entries(cart).reduce((s,[id,q])=>s+getProduct(id).price*q,0);
   const msg=document.getElementById("couponMessage");
-  if(code==="SAVE10" && subtotal>=1000) {
-    couponApplied=true;
-    msg.textContent="Coupon applied: 10% off.";
+  if(code==="SAVE10"&&subtotal>=1000) {
+    couponApplied=true; msg.textContent="Coupon applied: 10% off.";
   } else if(code==="SAVE10") {
-    couponApplied=false;
-    msg.textContent="Add products worth at least ₹1,000 to use this coupon.";
+    couponApplied=false; msg.textContent="Add products worth at least ₹1,000.";
   } else {
-    couponApplied=false;
-    msg.textContent="Invalid coupon code.";
+    couponApplied=false; msg.textContent="Invalid coupon code.";
   }
   renderCart();
 }
 
-function checkout() {
-  const entries=Object.entries(cart);
-  if(!entries.length) {
-    alert("Your cart is empty!");
+/* Customer details are collected when the customer confirms an order. */
+document.getElementById("customerForm").addEventListener("submit",function(e) {
+  e.preventDefault();
+  if(!this.reportValidity()) return;
+
+  const name=document.getElementById("customerName").value.trim();
+  const phone=document.getElementById("customerPhone").value.trim();
+  const address=document.getElementById("customerAddress").value.trim();
+
+  if(!name||!address||!/^[6-9]\d{9}$/.test(phone)) {
+    alert("Enter a valid name, Indian mobile number and address.");
     return;
   }
+
+  const entries=Object.entries(cart).filter(([id,q])=>q>0);
+  if(!entries.length) {
+    alert("Your cart is empty.");
+    showCart();
+    return;
+  }
+
   const subtotal=entries.reduce((s,[id,q])=>s+getProduct(id).price*q,0);
-  const discount=couponApplied && subtotal>=1000?Math.round(subtotal*.10):0;
+  const discount=couponApplied&&subtotal>=1000?Math.round(subtotal*.10):0;
   const total=subtotal-discount;
-  const confirmed=confirm(`Demo checkout\nTotal: ${money(total)}\nNo real payment will be taken. Continue?`);
-  if(!confirmed) return;
+
+  const customer={name,phone,address};
 
   orders.unshift({
     number:Date.now().toString().slice(-8),
     date:new Date().toLocaleString(),
-    items:entries.map(([id,q])=>({name:getProduct(id).name,qty:q})),
-    total
+    items:entries.map(([id,qty])=>({name:getProduct(id).name,qty})),
+    total,
+    customer
   });
-  cart={}; couponApplied=false;
+
+  cart={};
+  couponApplied=false;
   document.getElementById("coupon").value="";
+  document.getElementById("couponMessage").textContent="";
+  this.reset();
+
   renderCart();
   renderOrders();
-  alert("Demo order placed successfully!");
+
+  alert("Demo order placed successfully!\n\nCustomer: "+name+
+    "\nPhone: "+phone+"\nAddress: "+address+"\nTotal: "+money(total));
+
   showOrders();
-}
+});
 
 function renderWishlist() {
   const list=productsData.filter(p=>wishlist.has(p.id));
   document.getElementById("wishlistItems").innerHTML=list.length?list.map(p=>`
     <article class="product">
-      <img class="product-image" src="${p.photo}" alt="${p.name}" loading="lazy">
-      <div class="details"><h3>${p.name}</h3>
+      <img class="product-image" src="${p.photo}" alt="${escapeHTML(p.name)}" loading="lazy">
+      <div class="details"><h3>${escapeHTML(p.name)}</h3>
       <div class="price">${money(p.price)}</div>
       <button class="primary add" onclick="addToCart(${p.id})">Add to Cart</button>
       <button class="secondary add" onclick="toggleWish(${p.id})">Remove</button></div>
     </article>`).join(""):"<div class='empty'>Your wishlist is empty.</div>";
 }
 
-function showOrders() {
-  showPanel("ordersPanel");
-  renderOrders();
-}
-
 function renderOrders() {
   document.getElementById("orderItems").innerHTML=orders.length?orders.map(o=>`
-    <div class="cart-row"><div class="cart-info">
-      <strong>Order #${o.number}</strong><br>
-      <small>${o.date}</small><br>
-      <small>${o.items.map(i=>i.name+" × "+i.qty).join(", ")}</small>
-    </div><strong>${money(o.total)}</strong></div>`).join(""):"<p>No orders yet. Your demo orders will appear here.</p>";
+    <div class="cart-row">
+      <div class="cart-info">
+        <strong>Order #${escapeHTML(o.number)}</strong><br>
+        <small>${escapeHTML(o.date)}</small><br>
+        <small>${o.items.map(i=>escapeHTML(i.name)+" × "+i.qty).join(", ")}</small>
+        ${o.customer?`
+          <p><strong>Customer:</strong> ${escapeHTML(o.customer.name)}</p>
+          <p><strong>Phone:</strong> ${escapeHTML(o.customer.phone)}</p>
+          <p><strong>Address:</strong> ${escapeHTML(o.customer.address)}</p>
+        `:""}
+      </div>
+      <strong>${money(o.total)}</strong>
+    </div>`).join(""):"<p>No orders yet. Your demo orders will appear here.</p>";
 }
 
 function toggleDark() {
   document.body.classList.toggle("dark");
-  localStorage.setItem("shopease-dark",document.body.classList.contains("dark")?"yes":"no");
+  try {
+    localStorage.setItem("shopease-dark",document.body.classList.contains("dark")?"yes":"no");
+  } catch(e) {}
 }
 
 document.getElementById("search").addEventListener("input",renderProducts);
 document.getElementById("sort").addEventListener("change",renderProducts);
 
-if(localStorage.getItem("shopease-dark")==="yes") document.body.classList.add("dark");
+try {
+  if(localStorage.getItem("shopease-dark")==="yes") document.body.classList.add("dark");
+} catch(e) {}
 
 renderCategories();
 renderProducts();
