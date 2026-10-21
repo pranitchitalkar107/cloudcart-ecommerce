@@ -2,11 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CloudCart E-Commerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CloudCart | Online Shopping</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6fb;
+      color: #222;
+    }
+    header {
+      background: #24245c;
+      color: white;
+      padding: 22px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { margin: 0; }
+    .hero {
+      background: #e4e8ff;
+      text-align: center;
+      padding: 45px 15px;
+    }
+    .hero h2 { font-size: 32px; }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 20px;
+      padding: 30px 8%;
+    }
+    .product {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 12px #0001;
+    }
+    .product .emoji { font-size: 55px; }
+    button {
+      background: #24245c;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    #cart { font-weight: bold; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #24245c;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to CloudCart!</h1>
-  <p>Cloud-Based E-Commerce System</p>
-  <p>Manage products, carts and orders.</p>
+  <header>
+    <h1>☁ CloudCart</h1>
+    <div id="cart">🛒 Cart: 0</div>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to CloudCart!</h2>
+    <p>Your one-stop shop for everyday essentials.</p>
+    <p>Shop smart. Shop simple. Shop online.</p>
+  </section>
+
+  <section class="products">
+    <div class="product">
+      <div class="emoji">🎧</div>
+      <h3>Wireless Headphones</h3>
+      <p>₹1,499</p>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product">
+      <div class="emoji">⌚</div>
+      <h3>Smart Watch</h3>
+      <p>₹2,499</p>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product">
+      <div class="emoji">🎒</div>
+      <h3>Travel Backpack</h3>
+      <p>₹999</p>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product">
+      <div class="emoji">🔊</div>
+      <h3>Bluetooth Speaker</h3>
+      <p>₹1,199</p>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+  </section>
+
+  <footer>
+    CloudCart | Cloud-Based E-Commerce Mini Project
+  </footer>
+
+  <script>
+    let cartCount = 0;
+    function addToCart() {
+      cartCount++;
+      document.getElementById("cart").textContent =
+        "🛒 Cart: " + cartCount;
+    }
+  </script>
 </body>
 </html>
